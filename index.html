@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Mini Block Builder</title>
     
+    <!-- FAVICON (Uses your existing SVG) -->
+    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJz48cmVjdCB3aWR0PScxMDAnIGhlaWdodD0nMTAwJyBmaWxsPScjNENSQUY1MCcgLz48dGV4dCB4PSc1MCcgeT0nNjAnIGZvbnQtc2l6ZT0nNTAnIHRleHQtYW5jaG9yPSdtZWRkbGUnIGZpbGw9JyNGRkZGRkYnPuKaoTwvdGV4dD48L1N2Zz4=">
+
     <!-- PWA MANIFEST and Meta Tags for "Install App" feature -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -20,6 +23,7 @@
             user-select: none;
             -webkit-user-select: none;
             touch-action: none;
+            background-color: #87CEEB; /* Fallback color */
         }
 
         #blocker {
@@ -1217,7 +1221,7 @@
             const height = 7;
             
             const yellowIdx = 9; 
-            const redIdx = 10;   
+            const redIdx = 10;    
             const blackIdx = 2; 
 
             for(let x = 0; x < width; x++) {
