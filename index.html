@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Mini Block Builder</title>
     
-    <!-- FAVICON (Uses your existing SVG) -->
+    <!-- FAVICON -->
     <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJz48cmVjdCB3aWR0PScxMDAnIGhlaWdodD0nMTAwJyBmaWxsPScjNENSQUY1MCcgLz48dGV4dCB4PSc1MCcgeT0nNjAnIGZvbnQtc2l6ZT0nNTAnIHRleHQtYW5jaG9yPSdtZWRkbGUnIGZpbGw9JyNGRkZGRkYnPuKaoTwvdGV4dD48L1N2Zz4=">
 
-    <!-- PWA MANIFEST and Meta Tags for "Install App" feature -->
+    <!-- PWA MANIFEST (Must be a link to a file for Android install prompt) -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Meta Tags for iOS (which doesn't use manifest as much) -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#4CAF50">
-    <link rel="manifest" href="data:application/manifest+json;base64,ewogICJuYW1lIjogIk1pbmkgQmxvY2sgQnVpbGRlciIsCiAgInNob3J0X25hbWUiOiAiQmxvY2sgQnVpbGRlciIsCiAgImRlc2NyaXB0aW9uIjogIkEgc2ltcGxlIDNEIGJsb2NrIGJ1aWxkaW5nIGdhbWUuIiwKICAic3RhcnRfdXJsIjogIi4vIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjNENSQUY1MCIsCiAgInRoZW1lX2NvbG9yIjogIiM0Q0FGNTAiLAogICJpY29ucyI6IFsKICAgIHsic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsPFNWRyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJz48cmVjdCB3aWR0PScxMDAnIGhlaWdodD0nMTAwJyBmaWxsPScjNENSQUY1MCcgLz48dGV4dCB4PSc1MCcgeT0nNjAnIGZvbnQtc2l6ZT0nNTAnIHRleHQtYW5jaG9yPSdtZWRkbGUnIGZpbGw9JyNGRkZGRkYnPuKaoTwvdGV4dD48L1NWRz4iLCAic2l6ZXMiOiAiMTkyeDE5MiIsICJ0eXBlIjogImltYWdlL3N2Zyt4bWwifSwKICAgIHsic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsPFNWRyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJz48cmVjdCB3aWR0PScxMDAnIGhlaWdodD0nMTAwJyBmaWxsPScjNENSQUY1MCcgLz48dGV4dCB4PSc1MCcgeT0nNjAnIGZvbnQtc2l6ZT0nNTAnIHRleHQtYW5jaG9yPSdtZWRkbGUnIGZpbGw9JyNGRkZGRkYnPuKaoTwvdGV4dD48L1NWRz4iLCAic2l6ZXMiOiAiNTEyeDUxMiIsICJ0eXBlIjogImltYWdlL3N2Zyt4bWwifQogIF0KfQ==">
 
     <style>
         body {
@@ -549,6 +551,19 @@
     <script type="module">
         import * as THREE from 'three';
         import { PointerLockControls } from 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/controls/PointerLockControls.js';
+
+        // --- Service Worker Registration (REQUIRED FOR PWA) ---
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
 
         // --- Game Configuration ---
         const BLOCK_SIZE = 10;
